@@ -1,0 +1,8 @@
+DROP TRIGGER IF EXISTS before_insert_pacjenci;
+
+DELIMITER $$
+CREATE TRIGGER before_insert_pacjenci
+	BEFORE INSERT ON pacjenci
+	FOR EACH ROW
+BEGIN
+	:

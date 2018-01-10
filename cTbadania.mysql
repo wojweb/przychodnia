@@ -2,10 +2,11 @@ DROP TABLE IF EXISTS badania;
 
 CREATE TABLE badania(
 	IDbadania INT UNSIGNED PRIMARY KEY,
-	#	FOREIGN KEY REFERENCES wizyty(IDbadania),
-	typBadania VARCHAR(64),
-	dataBadania DATE
+	IDwizyty INT UNSIGNED NOT NULL,
+	typBadania VARCHAR(64) NOT NULL,
+	dataBadania DATE,
 
-	#FOREIGN KEY fk_IDbadania(IDbadania)
-	#REFERENCES wizyty(IDbadania)
+	FOREIGN KEY fk_IDwizyty (IDwizyty)
+	REFERENCES wizyty(IDwizyty)
+	
 );
