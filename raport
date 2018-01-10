@@ -1,0 +1,9 @@
+BACKUP bazy danych w mysql robi bardzo prosto uzywajac narzedzia mhysqldump
+
+skladnia: mysqldump [argument] > [dump_file.mysql]
+
+przydatne argumenty
+-u [username]
+-p [password] preferowane pominac,samemu zapyta przed wykonaniem
+--databases [databse_name] badz --databases [db1] [db2] ... badz --all-databases
+--routines, -R dolacza funkcje i procedury do backupu

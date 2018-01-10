@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS uzytkownicy;
+
+CREATE TABLE uzytkownicy(
+	login CHAR(11) PRIMARY KEY,
+	haslo CHAR(40) NOT NULL,
+	uprawnienia ENUM('administrator', 'lekarz', 'recepcjonista') NOT NULL
+);

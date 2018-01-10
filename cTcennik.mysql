@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS cennik;
+
+CREATE TABLE cennik(
+	typBadania VARCHAR(64) PRIMARY KEY,
+	cena INT UNSIGNED NOT NULL,
+	czyRefundowane ENUM('tak', 'nie')
+);

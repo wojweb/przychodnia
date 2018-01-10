@@ -1,0 +1,16 @@
+DROP TABLE IF EXISTS pracownicy;
+
+CREATE TABLE pracownicy(
+	PESEL CHAR(11) PRIMARY KEY,
+	imie VARCHAR(65) NOT NULL,
+	drugieImie VARCHAR(64),
+	nazwisko VARCHAR(64) NOT NULL,
+	stanowisko VARCHAR(64) NOT NULL,
+	specjalizacja VARCHAR(64),
+	ulica VARCHAR(64) NOT NULL,
+	miasto VARCHAR(64) NOT NULL,
+	kodPocztowy CHAR(6) NOT NULL,
+	telefon CHAR(9) NOT NULL,
+	zarobki INT UNSIGNED NOT NULL,
+	dataZatrudnienia DATE NOT NULL
+);

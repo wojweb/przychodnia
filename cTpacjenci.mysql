@@ -1,0 +1,14 @@
+DROP TABLE IF EXISTS pacjenci;
+
+CREATE TABLE pacjenci(
+	PESEL CHAR(11) PRIMARY KEY,
+	imie VARCHAR(64) NOT NULL,
+	drugieImie VARCHAR(64),
+	nazwisko VARCHAR(64),
+	czyUbezpieczony ENUM('tak','nie') NOT NULL,
+	ulica VARCHAR(64) NOT NULL,
+	miasto VARCHAR(64) NOT NULL,
+	kodPocztowy CHAR(6) NOT NULL,
+	telefon CHAR(9) NOT NULL
+);
+	
