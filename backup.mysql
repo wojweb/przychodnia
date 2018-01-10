@@ -32,9 +32,12 @@ DROP TABLE IF EXISTS `badania`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `badania` (
   `IDbadania` int(10) unsigned NOT NULL,
-  `typBadania` varchar(64) DEFAULT NULL,
+  `IDwizyty` int(10) unsigned NOT NULL,
+  `typBadania` varchar(64) NOT NULL,
   `dataBadania` date DEFAULT NULL,
-  PRIMARY KEY (`IDbadania`)
+  PRIMARY KEY (`IDbadania`),
+  KEY `fk_IDwizyty` (`IDwizyty`),
+  CONSTRAINT `badania_ibfk_1` FOREIGN KEY (`IDwizyty`) REFERENCES `wizyty` (`IDwizyty`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -98,6 +101,7 @@ CREATE TABLE `pacjenci` (
 
 LOCK TABLES `pacjenci` WRITE;
 /*!40000 ALTER TABLE `pacjenci` DISABLE KEYS */;
+INSERT INTO `pacjenci` VALUES ('00000000000','-',NULL,'-','nie','-','-','000000','000000000');
 /*!40000 ALTER TABLE `pacjenci` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -166,13 +170,12 @@ DROP TABLE IF EXISTS `wizyty`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `wizyty` (
-  `IDwizity` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `IDwizyty` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `pacjent` char(11) NOT NULL,
   `lekarz` char(11) NOT NULL,
   `dataWizyty` date NOT NULL,
   `protokol` varchar(512) DEFAULT NULL,
-  `IDbadania` int(10) unsigned DEFAULT NULL,
-  PRIMARY KEY (`IDwizity`),
+  PRIMARY KEY (`IDwizyty`),
   KEY `fk_pacjent` (`pacjent`),
   KEY `fk_lekarz` (`lekarz`),
   CONSTRAINT `wizyty_ibfk_1` FOREIGN KEY (`pacjent`) REFERENCES `pacjenci` (`PESEL`) ON UPDATE CASCADE,
@@ -202,4 +205,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-10 20:08:11
+-- Dump completed on 2018-01-10 23:38:38
