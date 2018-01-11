@@ -9,6 +9,7 @@ public interface AdminConnectionInterface {
     //https://www.mkyong.com/java/java-md5-hashing-example/
 
     boolean addUser(UserView user);
+    boolean changePasswd(UserView userWithNewPasswd);
     boolean deleteUser(UserView user);
 
 

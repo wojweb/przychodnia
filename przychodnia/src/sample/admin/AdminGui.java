@@ -21,11 +21,11 @@ public class AdminGui {
     private int HEIGHT = 800;
     private int WIDTH = 800;
     private BorderPane root;
-    AdminConnectionManager manager;
+    AdminConnectionInterface manager;
 
     public AdminGui(Stage stage){
         root = new BorderPane();
-        manager = new AdminConnectionManager();
+        manager = new FakeAdminConnection();
 
         Label infolabel = new Label("Menu administratora:");
         infolabel.setFont(new Font("Arial", 20));
@@ -52,63 +52,51 @@ public class AdminGui {
 
     void userMode(){
 
-        TableView<UserView> table  = new TableView();
-//        table.setMaxSize(100, 100);
-        ObservableList<UserView> data = FXCollections.observableArrayList();
+        TableView<UserProperty> table  = new TableView<UserProperty>();
+
+        ObservableList<UserProperty> data = FXCollections.observableArrayList();
         UserView [] users = manager.getUsers();
 
-        data.addAll(Arrays.asList(users));
+        for(UserView user : users){
+            data.add(new UserProperty(user));
+            System.out.println("");
+        }
+
 
         TableColumn peselColmumn = new TableColumn("Uzytkowik");
-        peselColmumn.setCellFactory(new PropertyValueFactory<UserView, String>("PESEL"));
+        peselColmumn.setCellValueFactory(new PropertyValueFactory<UserProperty, String>("pesel"));
         TableColumn typeColumn = new TableColumn("Typ uzytkownika");
-        peselColmumn.setCellFactory(new PropertyValueFactory<UserView, String>("typ"));
+        typeColumn.setCellValueFactory(new PropertyValueFactory<UserProperty, String>("typ"));
+
+        table.setItems(data);
         table.getColumns().addAll(peselColmumn, typeColumn);
 
         root.setCenter(table);
 
         Button deleteUserButton = new Button("Usun uzytkownika");
         deleteUserButton.setOnAction(e -> {
-            UserView user = table.getSelectionModel().getSelectedItem();
-            manager.deteleUser(user.getPESEL());
-            userMode();
-
         });
 
         Button changePasswdButton = new Button("Zmien haslo");
         changePasswdButton.setOnAction(e -> {
-            UserView user = table.getSelectionModel().getSelectedItem();
-            Label peselLabel = new Label(user.getPESEL());
-            TextField newPawsswdTextField = new TextField("Nowe haslo");
-            Button changeButton = new Button("Zmien");
-            changeButton.setOnAction(event -> {
-                manager.changePasswd(user.getPESEL(), newPawsswdTextField.getText());
-            });
-
-            HBox hBox = new HBox(peselLabel, newPawsswdTextField, changeButton);
-            root.setBottom(hBox);
         });
 
         Button addUserButton = new Button("Dodaj uzytkownika");
         addUserButton.setOnAction(e -> {
-            TextField peselTextField = new TextField("PESEL");
-            TextField passwdTextField = new TextField("Nowe haslo");
-            Button addButton = new Button("Dodaj");
-            addButton.setOnAction(event -> {
-                manager.addUser(peselTextField.getText(), passwdTextField.getText());
-            });
         });
 
         VBox buttomsBox = new VBox(addUserButton, changePasswdButton, deleteUserButton);
         root.setRight(buttomsBox);
 
 
-        //Dodanie uzytkownika
+
 
 
 
 
     }
+
+
 
 
 
