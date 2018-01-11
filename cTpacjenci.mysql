@@ -12,3 +12,16 @@ CREATE TABLE pacjenci(
 	telefon CHAR(9) NOT NULL
 );
 	
+#INSERT INTO pacjenci
+#VALUES ('','','','','','','','','');
+
+INSERT INTO pacjenci
+VALUES ('39060680910','Bogusław','Stanisław','Mickiewicz','tak','Żelazna 56c','Jelcz-Laskowice','55-200','721166886');
+INSERT INTO pacjenci
+VALUES ('05313058401','Agnieszka','Aleksandra','Anders','tak','Grunwaldzka 77/8','Wrocław','51-149','531251297');
+INSERT INTO pacjenci
+VALUES ('82121509301','Michalina',NULL,'Ziętek','nie','Śliczna 22/7','Oława','55-200','535369321');
+INSERT INTO pacjenci
+VALUES ('61021074212','Mateusz','Marian','Cząstka','nie','Długa 5','Wrocław','51-150','530717400');
+INSERT INTO pacjenci
+VALUES ('97010894510','Janusz',NULL,'Grochola','tak','Chrobrego 20','Oława','55-200','662407812');

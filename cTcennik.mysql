@@ -5,3 +5,17 @@ CREATE TABLE cennik(
 	cena INT UNSIGNED NOT NULL,
 	czyRefundowane ENUM('tak', 'nie')
 );
+
+#INSERT INTO cennik
+#VALUES ('','','');
+
+INSERT INTO cennik
+VALUES ('Tomografia komputerowa twarzoczaszki','420','nie');
+INSERT INTO cennik
+VALUES ('USG jamy brzusznej','80','tak');
+INSERT INTO cennik
+VALUES ('Morfologia','30','tak');
+INSERT INTO cennik
+VALUES ('Posiew moczu','40','tak');
+INSERT INTO cennik
+VALUES ('RTG kręgosłupa szyjnego','35','tak');
