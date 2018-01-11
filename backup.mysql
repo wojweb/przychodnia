@@ -101,9 +101,79 @@ CREATE TABLE `pacjenci` (
 
 LOCK TABLES `pacjenci` WRITE;
 /*!40000 ALTER TABLE `pacjenci` DISABLE KEYS */;
-INSERT INTO `pacjenci` VALUES ('00000000000','-',NULL,'-','nie','-','-','000000','000000000');
+INSERT INTO `pacjenci` VALUES ('00000000000','-',NULL,'-','nie','-','-','000000','000000000'),('97011604334','Szymon','Piotr','Wojtaszek','tak','Skladowa 12','Czerwiensk','66-016','604998662');
 /*!40000 ALTER TABLE `pacjenci` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`pan`@`localhost`*/ /*!50003 TRIGGER before_insert_pacjenci
+	BEFORE INSERT ON pacjenci
+	FOR EACH ROW
+BEGIN
+	DECLARE peselNumb BIGINT DEFAULT 0;
+	DECLARE kontrolna INT DEFAULT 0;
+	DECLARE sum INT DEFAULT 0;
+	DECLARE word VARCHAR(40);
+	DECLARE newpeselNumb BIGINT DEFAULT 0;
+	SET peselNumb = NEW.PESEL;
+	
+	SET kontrolna = MOD(peselNumb, 10);
+	SET newpeselNumb = peselNumb;
+	SET peselNumb = FLOOR(peselNumb / 10);
+
+	SET sum = sum + 7 * MOD(peselNumb, 10);
+	SET peselNumb = FLOOR(peselNumb / 10);
+	
+	SET sum = sum + 9 * MOD(peselNumb, 10);
+	SET peselNumb = FLOOR(peselNumb / 10);
+	
+	SET sum = sum + MOD(peselNumb, 10);
+	SET peselNumb = FLOOR(peselNumb / 10);
+
+	SET sum = sum + 3 * MOD(peselNumb, 10);
+	SET peselNumb = FLOOR(peselNumb / 10);
+	
+	SET sum = sum + 7 * MOD(peselNumb, 10);
+	SET peselNumb = FLOOR(peselNumb / 10);
+	
+	SET sum = sum + 9  * MOD(peselNumb, 10);
+	SET peselNumb = FLOOR(peselNumb / 10);
+
+	SET sum = sum + MOD(peselNumb, 10);
+	SET peselNumb = FLOOR(peselNumb / 10);
+	
+	SET sum = sum + 3 * MOD(peselNumb, 10);
+	SET peselNumb = FLOOR(peselNumb / 10);
+	
+	SET sum = sum + 7 * MOD(peselNumb, 10);
+	SET peselNumb = FLOOR(peselNumb / 10);
+	
+	SET sum = sum + 9 * MOD(peselNumb, 10);
+	SET peselNumb = FLOOR(peselNumb / 10);
+	
+	IF MOD(sum, 10) <> kontrolna THEN
+	SIGNAL SQLSTATE '45000'
+	SET MESSAGE_TEXT = 'Niepoprawny numer pesel';
+	END IF;
+
+	IF NEW.kodPocztowy NOT LIKE '%%-%%%' THEN
+	SIGNAL SQLSTATE '45001'
+	SET MESSAGE_TEXT = 'Niepoprawny kod pocztowy';
+	END IF;
+
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `pracownicy`
@@ -205,4 +275,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-10 23:38:38
+-- Dump completed on 2018-01-11 12:29:57
