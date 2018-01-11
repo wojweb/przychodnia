@@ -21,10 +21,11 @@ public class AdminGui {
     private int HEIGHT = 800;
     private int WIDTH = 800;
     private BorderPane root;
-     AdminConnectionManager manager;
+    AdminConnectionManager manager;
 
     public AdminGui(Stage stage){
         root = new BorderPane();
+        manager = new AdminConnectionManager();
 
         Label infolabel = new Label("Menu administratora:");
         infolabel.setFont(new Font("Arial", 20));
