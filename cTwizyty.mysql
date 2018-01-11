@@ -4,7 +4,7 @@ CREATE TABLE wizyty(
 	IDwizyty INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	pacjent CHAR(11) NOT NULL,
 	lekarz CHAR(11) NOT NULL,
-	dataWizyty DATE NOT NULL,
+	dataWizyty DATETIME NOT NULL,
 	protokol VARCHAR(512),
 
 	FOREIGN KEY fk_pacjent(pacjent)
@@ -17,3 +17,13 @@ CREATE TABLE wizyty(
 	ON UPDATE CASCADE
 	ON DELETE RESTRICT
 );
+
+#INSERT INTO wizyty
+#VALUES ('','','','','');
+
+INSERT INTO wizyty
+VALUES ('1','05313058401','88102994317','2016-06-20 09:30:00','Pacjentka z wysoką temperaturą oraz kaszlem z częstym bólem gardła. Zdiagnozowano grypę, przepisano odpowiednie lekarstwa.');
+INSERT INTO wizyty
+VALUES ('2','97010894510','89040187700','2016-06-22 15:00:00','Pacjent skarży się na ból w okolicach 3. kręgu szyjnego. Zlecono RTG kręgosłupa szyjnego.');
+INSERT INTO wizyty
+VALUES ('3','39060680910','89040187700','2020-05-18 12:00:00','');

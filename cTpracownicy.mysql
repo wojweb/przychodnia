@@ -27,4 +27,4 @@ VALUES ('78040282706','Antonina','Genowefa','Adamczyk','recepcjonistka', NULL,'L
 INSERT INTO pracownicy
 VALUES ('88102994317','Marcel', NULL,'Zwykły','lekarz','pediatra','Prestiżowa 21/37','Wadowice','34-100','796932624','3000','2016-06-19');
 INSERT INTO pracownicy
-VALUES ('89040187700','Agata','Monika','Nowak','lekarz','chirurg','Wystawowa 5','Poznań','62-030','515814424','3050','2016-06-19');
+VALUES ('89040187700','Agata','Monika','Nowak','lekarz','ortopeda','Wystawowa 5','Poznań','62-030','515814424','3050','2016-06-19');
