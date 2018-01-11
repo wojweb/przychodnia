@@ -11,6 +11,11 @@ public class UserProperty {
         typ = new SimpleStringProperty(user.getTyp().toString());
     }
 
+    public UserProperty(SimpleStringProperty pesel, SimpleStringProperty typ) {
+        this.pesel = pesel;
+        this.typ = typ;
+    }
+
     public String getPesel() {
         return pesel.get();
     }
@@ -25,13 +30,5 @@ public class UserProperty {
 
     public SimpleStringProperty typProperty() {
         return typ;
-    }
-
-    public void setPesel(String pesel) {
-        this.pesel.set(pesel);
-    }
-
-    public void setTyp(String typ) {
-        this.typ.set(typ);
     }
 }

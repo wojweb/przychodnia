@@ -22,20 +22,27 @@ public class FakeAdminConnection implements AdminConnectionInterface {
 
     @Override
     public boolean addUser(UserView user) {
+        System.out.println("Dodaje: " + user.getPESEL());
         users.add(user);
 
-        return false;
+        return true;
     }
 
     @Override
     public boolean changePasswd(UserView userWithNewPasswd) {
-        return false;
+        System.out.println("Zmieniam haslo uzytkownika: " + userWithNewPasswd.getPESEL() + " na " + userWithNewPasswd.getPasswd());
+        if(users.contains(userWithNewPasswd)) {
+            users.get(users.indexOf(userWithNewPasswd)).setPasswd(userWithNewPasswd.getPasswd());
+            return true;
+        }else
+            return false;
     }
 
     @Override
     public boolean deleteUser(UserView user) {
-        return users.remove(user);
-
+        System.out.println("Usuwam: " + user.getPESEL());
+        users.remove(user);
+        return true;
     }
 
     @Override

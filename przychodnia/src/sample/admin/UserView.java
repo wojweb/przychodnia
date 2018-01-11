@@ -7,11 +7,16 @@ public class UserView {
     private String passwd;
     private TypUzytkownika typ;
 
+    @Override
+    public boolean equals(Object obj) {
+        return PESEL.equals(((UserView) obj).getPESEL());
+    }
 
     public UserView(String PESEL, TypUzytkownika typ) {
         this.PESEL = PESEL;
         this.typ = typ;
     }
+
 
     public UserView(String PESEL, String passwd, TypUzytkownika typ) {
         this.PESEL = PESEL;
@@ -19,6 +24,14 @@ public class UserView {
         this.typ = typ;
     }
 
+    public UserView(UserProperty userProperty){
+        this.PESEL = userProperty.getPesel();
+        this.typ = TypUzytkownika.valueOf(userProperty.getTyp());
+    }
+
+    public void setPasswd(String passwd) {
+        this.passwd = passwd;
+    }
 
     public String getPESEL() {
         return PESEL;
