@@ -14,3 +14,17 @@ CREATE TABLE pracownicy(
 	zarobki INT UNSIGNED NOT NULL,
 	dataZatrudnienia DATE NOT NULL
 );
+#template
+#INSERT INTO pracownicy
+#VALUES ('','','','','','','','','','','','');
+
+INSERT INTO pracownicy
+VALUES ('80011860716','Adam','Marcin','Kowalski','konserwator powierzchni plaskich', NULL,'Kwiatowa 77','Wałbrzych','58-300','886625338','2060','2014-04-12');
+INSERT INTO pracownicy
+VALUES ('90072062204','Adrianna','Maria','Wójcik','pielęgniarka', NULL,'Plac Historyczny 54/2','Legnica','59-220','722069037','2590','2016-09-01');
+INSERT INTO pracownicy
+VALUES ('78040282706','Antonina','Genowefa','Adamczyk','recepcjonistka', NULL,'Lecha Kaczyńskiego 10b','Sosnowiec','41-205','608301449','2300','2013-04-27');
+INSERT INTO pracownicy
+VALUES ('88102994317','Marcel', NULL,'Zwykły','lekarz','pediatra','Prestiżowa 21/37','Wadowice','34-100','796932624','3000','2016-06-19');
+INSERT INTO pracownicy
+VALUES ('89040187700','Agata','Monika','Nowak','lekarz','chirurg','Wystawowa 5','Poznań','62-030','515814424','3050','2016-06-19');
