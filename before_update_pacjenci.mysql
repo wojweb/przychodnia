@@ -1,8 +1,8 @@
-DROP TRIGGER IF EXISTS before_insert_pacjenci;
+DROP TRIGGER IF EXISTS before_update_pacjenci;
 
 DELIMITER $$
-CREATE TRIGGER before_insert_pacjenci
-	BEFORE INSERT ON pacjenci
+CREATE TRIGGER before_update_pacjenci
+	BEFORE UPDATE ON pacjenci
 	FOR EACH ROW
 BEGIN
 	DECLARE peselNumb BIGINT DEFAULT 0;
@@ -48,7 +48,7 @@ BEGIN
 	
 	IF MOD(sum, 10) <> kontrolna THEN
 	SIGNAL SQLSTATE '45000'
-	SET MESSAGE_TEXT = "Niepoprawny numer PESEL";
+	SET MESSAGE_TEXT = 'Niepoprawny numer pesel';
 	END IF;
 
 	IF NEW.kodPocztowy NOT LIKE '%%-%%%' THEN
