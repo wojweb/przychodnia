@@ -1,9 +1,11 @@
 package sample.admin;
 
+import java.util.ArrayList;
+
 public interface AdminConnectionInterface {
 
     //obsluga uzytkownikow
-    UserView[] getUsers();
+    ArrayList<UserView> getUsers();
 
     //Wez dane z usera i wrzuc je do tabeli, pamietaj, aby zahashowac haslo, algorytm MD5
     //https://www.mkyong.com/java/java-md5-hashing-example/
@@ -15,7 +17,7 @@ public interface AdminConnectionInterface {
 
     //obsluga pracownikow
     //dawaj mi wszystkich
-    EmployeeView[] getEmployees();
+    ArrayList<EmployeeView> getEmployees();
 
 
     //dodaj do bazy danych
