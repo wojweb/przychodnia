@@ -1,5 +1,6 @@
 package sample.admin;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class EmployeeView {
@@ -14,7 +15,7 @@ public class EmployeeView {
     private String postcode;
     private String telephone;
     private int wage;
-    private String dateOfEmployee;
+    private Date dateOfEmployee;
 
     @Override
     public boolean equals(Object obj) {
@@ -22,7 +23,7 @@ public class EmployeeView {
     }
 
     public EmployeeView(String PESEL, String name, String secondName, String surname, String position, String specialization,
-                        String street, String city, String postcode, String telephone, int wage, String dateOfEmployee) {
+                        String street, String city, String postcode, String telephone, int wage, Date dateOfEmployee) {
         this.PESEL = PESEL;
         this.name = name;
         this.secondName = secondName;
@@ -81,7 +82,7 @@ public class EmployeeView {
         return wage;
     }
 
-    public String getDateOfEmployee() {
+    public Date getDateOfEmployee() {
         return dateOfEmployee;
     }
 }

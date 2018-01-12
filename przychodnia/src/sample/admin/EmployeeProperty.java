@@ -3,6 +3,7 @@ package sample.admin;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class EmployeeProperty {
@@ -37,7 +38,8 @@ public class EmployeeProperty {
         postcode = new SimpleStringProperty(view.getPostcode());
         telephone = new SimpleStringProperty(view.getTelephone());
         wage = new SimpleStringProperty(Integer.toString(view.getWage()));
-        dateOfEmployee = new SimpleStringProperty(view.getDateOfEmployee());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        dateOfEmployee = new SimpleStringProperty(dateFormat.format(view.getDateOfEmployee()));   
     }
 
     public String getPESEL() {

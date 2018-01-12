@@ -20,9 +20,18 @@ public class FakeAdminConnection implements AdminConnectionInterface {
         for(int i = 0; i < 10; i ++)
             finances.add(new FinanceView(2007 + i, 135234 + (432*i), 32123 + 34 * i - 5 * i ^2));
         employees = new ArrayList<>();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Date date = null;
+        try{
+            date = dateFormat.parse("16-01-1997");
+        }catch (Exception e){
+            System.out.println("Nie udalo mi się :(");
+            System.out.println(e.getMessage());
+        }
+
         employees.add(new EmployeeView("SUPERPESEL", "Szymon", null, "Wojtaszek",
                 "Programista", null, "Piaskowa 12", "Czerwieńsk", "66-016",
-                "604998662", 43, "16.01.1997"));
+                "604998662", 43, date));
 
     }
 
