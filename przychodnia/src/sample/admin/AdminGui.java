@@ -17,6 +17,7 @@ import sample.TypUzytkownika;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 
 
 public class AdminGui {
@@ -37,11 +38,9 @@ public class AdminGui {
         Button employeeButton = new Button("Pracownicy");
         HBox menu = new HBox(infolabel, usersButton, financeButton, employeeButton);
         root.setTop(menu);
-        usersButton.setOnAction(e ->{
-            userMode();
-                }
-
-        );
+        usersButton.setOnAction(e -> userMode());
+        financeButton.setOnAction(e -> financesMode());
+        employeeButton.setOnAction(e -> employeeMode());
 
         //Finanse firmy
 
@@ -49,16 +48,16 @@ public class AdminGui {
         stage.setScene(scene);
     }
 
+
     void userMode(){
 
         TableView<UserProperty> table  = new TableView<UserProperty>();
 
         ObservableList<UserProperty> data = FXCollections.observableArrayList();
-        UserView [] users = manager.getUsers();
+        ArrayList<UserView> users = manager.getUsers();
 
         for(UserView user : users){
             data.add(new UserProperty(user));
-            System.out.println("");
         }
 
 
@@ -221,7 +220,70 @@ public class AdminGui {
         userMode();
     }
 
+    void financesMode(){
+        TableView<FinancesProperty> table = new TableView<>();
+        ObservableList<FinancesProperty> data = FXCollections.observableArrayList();
+        ArrayList<FinanceView> finances = manager.getFinances();
 
+        Iterator<FinanceView> iterator = finances.iterator();
+        while(iterator.hasNext())
+            data.add(new FinancesProperty(iterator.next()));
+
+        TableColumn yearColumn = new TableColumn("Rok");
+        yearColumn.setCellValueFactory(new PropertyValueFactory<FinancesProperty, String>("year"));
+        TableColumn incomeColumn = new TableColumn("Przychody");
+        incomeColumn.setCellValueFactory(new PropertyValueFactory<FinancesProperty, String>("income"));
+        TableColumn costsColumn = new TableColumn("Koszty");
+        costsColumn.setCellValueFactory(new PropertyValueFactory<FinancesProperty, String>("costs"));
+        TableColumn balanceColumn = new TableColumn("Bilans");
+        balanceColumn.setCellValueFactory(new PropertyValueFactory<FinancesProperty, String>("balance"));
+
+        table.setItems(data);
+        table.getColumns().addAll(yearColumn, incomeColumn, costsColumn, balanceColumn);
+
+        root.setCenter(table);
+        root.setRight(null);
+     }
+
+     void employeeMode(){
+        TableView<EmployeeProperty> table = new TableView<>();
+        ObservableList<EmployeeProperty> data = FXCollections.observableArrayList();
+
+        ArrayList<EmployeeView> employees = manager.getEmployees();
+        for(EmployeeView view : employees)
+            data.add(new EmployeeProperty(view));
+
+        TableColumn PESELColumn = new TableColumn("PESEL");
+        PESELColumn.setCellValueFactory(new PropertyValueFactory<EmployeeProperty, String>("PESEL"));
+        TableColumn nameColumn = new TableColumn("Imie");
+        nameColumn.setCellValueFactory(new PropertyValueFactory<EmployeeProperty, String>("name"));
+        TableColumn secondNameColumn = new TableColumn("Drugie imie");
+        secondNameColumn.setCellValueFactory(new PropertyValueFactory<EmployeeProperty, String>("secondName"));
+        TableColumn surnameColumn = new TableColumn("Nazwisko");
+        surnameColumn.setCellValueFactory(new PropertyValueFactory<EmployeeProperty, String>("surname"));
+        TableColumn positionColumn = new TableColumn("Pozycja");
+        positionColumn.setCellValueFactory(new PropertyValueFactory<EmployeeProperty, String>("position"));
+        TableColumn specializationColumn = new TableColumn("Specjalizacja");
+        specializationColumn.setCellValueFactory(new PropertyValueFactory<EmployeeProperty, String>("specialization"));
+        TableColumn streetColumn = new TableColumn("Ulica");
+        streetColumn.setCellValueFactory(new PropertyValueFactory<EmployeeProperty, String>("street"));
+        TableColumn cityColumn = new TableColumn("Miasto");
+        cityColumn.setCellValueFactory(new PropertyValueFactory<EmployeeProperty, String>("city"));
+        TableColumn postcodeColumn = new TableColumn("Kod pocztowy");
+        postcodeColumn.setCellValueFactory(new PropertyValueFactory<EmployeeProperty, String>("postcode"));
+        TableColumn telephoneColumn = new TableColumn("Telefon");
+        telephoneColumn.setCellValueFactory(new PropertyValueFactory<EmployeeProperty, String>("telephone"));
+        TableColumn wageColumn = new TableColumn("Zarobki");
+        wageColumn.setCellValueFactory(new PropertyValueFactory<EmployeeProperty, String>("telephone"));
+        TableColumn dateOfEmployeeColumn = new TableColumn("Data zatrudnienia");
+        dateOfEmployeeColumn.setCellValueFactory(new PropertyValueFactory<EmployeeProperty, String>("dateOfEmployee"));
+
+        table.setItems(data);
+        table.getColumns().addAll(PESELColumn, nameColumn, secondNameColumn, surnameColumn, positionColumn,
+                specializationColumn, streetColumn, cityColumn, postcodeColumn, telephoneColumn, wageColumn, dateOfEmployeeColumn);
+
+        root.setCenter(table);
+     }
 
 
 

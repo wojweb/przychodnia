@@ -26,6 +26,10 @@ public class AdminConnection implements AdminConnectionInterface {
             //STEP 3: Open a connection
             connectToDatabase("","","");// skąd mam wziąć usera, passworda i to trzecie do nawiązania połączenia? :/
     }
+    /**
+     * Olga, ja też nie wiem :( :( :(
+     *
+     * */
 
         boolean connectToDatabase (String DB_URL, String USER, String PASS){
             this.DB_URL=DB_URL;

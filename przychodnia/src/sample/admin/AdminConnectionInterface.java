@@ -31,7 +31,7 @@ public interface AdminConnectionInterface {
 
 
     //informacje o finansach na rozne lata
-    FinanceView getFinances();
+    ArrayList<FinanceView> getFinances();
 
 
 

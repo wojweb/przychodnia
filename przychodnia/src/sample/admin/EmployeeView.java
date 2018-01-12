@@ -14,9 +14,15 @@ public class EmployeeView {
     private String postcode;
     private String telephone;
     private int wage;
-    private Date dateOfEmployee;
+    private String dateOfEmployee;
 
-    public EmployeeView(String PESEL, String name, String secondName, String surname, String position, String specialization, String street, String city, String postcode, String telephone, int wage, Date dateOfEmployee) {
+    @Override
+    public boolean equals(Object obj) {
+        return PESEL.equals(((EmployeeView) obj).getPESEL());
+    }
+
+    public EmployeeView(String PESEL, String name, String secondName, String surname, String position, String specialization,
+                        String street, String city, String postcode, String telephone, int wage, String dateOfEmployee) {
         this.PESEL = PESEL;
         this.name = name;
         this.secondName = secondName;
@@ -75,7 +81,7 @@ public class EmployeeView {
         return wage;
     }
 
-    public Date getDateOfEmployee() {
+    public String getDateOfEmployee() {
         return dateOfEmployee;
     }
 }
