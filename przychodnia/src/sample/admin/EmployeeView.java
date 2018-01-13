@@ -1,5 +1,6 @@
 package sample.admin;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -22,6 +23,34 @@ public class EmployeeView {
         return PESEL.equals(((EmployeeView) obj).getPESEL());
     }
 
+    EmployeeView(EmployeeProperty employeeProperty){
+        PESEL = employeeProperty.getPESEL();
+        name = employeeProperty.getName();
+        if(employeeProperty.getSecondName().equals("-"))
+            secondName = null;
+        else
+            secondName = employeeProperty.getSecondName();
+        surname = employeeProperty.getSurname();
+        position = employeeProperty.getPosition();
+        if(employeeProperty.getSpecialization().equals("-"))
+            specialization = null;
+        else
+            specialization = employeeProperty.getSpecialization();
+        street = employeeProperty.getStreet();
+        city = employeeProperty.getCity();
+        postcode = employeeProperty.getPostcode();
+        wage = Integer.parseInt(employeeProperty.getWage());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+        try{
+            dateOfEmployee = dateFormat.parse(employeeProperty.getDateOfEmployee());
+        }catch (ParseException e){
+            System.out.println("Bledna zmiana formatu daty");
+            System.out.println(e.getMessage());
+        }
+
+    }
+
     public EmployeeView(String PESEL, String name, String secondName, String surname, String position, String specialization,
                         String street, String city, String postcode, String telephone, int wage, Date dateOfEmployee) {
         this.PESEL = PESEL;
@@ -37,6 +66,7 @@ public class EmployeeView {
         this.wage = wage;
         this.dateOfEmployee = dateOfEmployee;
     }
+
 
     public String getPESEL() {
         return PESEL;

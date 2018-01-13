@@ -76,7 +76,7 @@ public class FakeAdminConnection implements AdminConnectionInterface {
     }
 
     @Override
-    public boolean changeEmployeeName(EmployeeView employee) {
+    public boolean changeEmployee(EmployeeView employee) {
         int index = employees.indexOf(employee);
         if(index < 0)
             return false;

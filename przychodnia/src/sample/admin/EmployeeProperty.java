@@ -39,7 +39,7 @@ public class EmployeeProperty {
         telephone = new SimpleStringProperty(view.getTelephone());
         wage = new SimpleStringProperty(Integer.toString(view.getWage()));
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        dateOfEmployee = new SimpleStringProperty(dateFormat.format(view.getDateOfEmployee()));   
+        dateOfEmployee = new SimpleStringProperty(dateFormat.format(view.getDateOfEmployee()));
     }
 
     public String getPESEL() {

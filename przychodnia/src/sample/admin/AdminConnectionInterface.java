@@ -23,8 +23,8 @@ public interface AdminConnectionInterface {
     //dodaj do bazy danych
     boolean addEmployee(EmployeeView Employee);
 
-    //sprawdz po peselu i zmien zmiany
-    boolean changeEmployeeName(EmployeeView Employee);
+    //sprawdz po peselu i zamień wszystkie pola
+    boolean changeEmployee(EmployeeView Employee);
 
     //wez pesel i skasuj odpowiedni rekord
     boolean deleteEmployee(EmployeeView employee);
