@@ -46,8 +46,8 @@ public class Main extends Application {
         Button logInButton = new Button("Zaloguj");
         logInButton.setOnAction(e -> {
 //            boolean onLogInButtonClicked(peselTextField.getText(), passwdTextField.getText());
-            AdminGui gui = new AdminGui(primaryStage);
-//            ReceptionistGui gui = new ReceptionistGui(primaryStage);
+//            AdminGui gui = new AdminGui(primaryStage);
+            ReceptionistGui gui = new ReceptionistGui(primaryStage);
 
         });
 

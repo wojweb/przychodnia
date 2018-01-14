@@ -11,4 +11,13 @@ public interface ReceptionistConnectionInterface {
     boolean changePatient(PatientView newPatientView);
     boolean deletePatient(PatientView patientView);
 
+
+
+//    ArrayList <AppointmentView> getAppointments(PatientView patientView);
+//    ArrayList <AppointmentView> getAppointments(EmployeeView employeeView);
+//    ArrayList <EmployeeView> getDoctors();
+//    boolean addAppointment(AppointmentView appointmentView);
+//    boolean deleteAppointment(AppointmentView appointmentView);
+
+
 }
