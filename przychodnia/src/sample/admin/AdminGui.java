@@ -1,5 +1,6 @@
 package sample.admin;
 
+import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -27,8 +28,8 @@ import java.util.Iterator;
 
 
 public class AdminGui {
-    private int HEIGHT = 800;
-    private int WIDTH = 800;
+    private int HEIGHT;
+    private int WIDTH;
     private int SPACING = 10;
     private BorderPane root;
     AdminConnectionInterface manager;
@@ -54,8 +55,9 @@ public class AdminGui {
 
         //Finanse firmy
 
-        Scene scene = new Scene(root, WIDTH, HEIGHT);
+        Scene scene = new Scene(root);
         stage.setMaximized(true);
+
         stage.setScene(scene);
     }
 
@@ -99,10 +101,10 @@ public class AdminGui {
             if(userProperty != null)
                 onDeleteUserButton(userProperty);
         });
-        int buttonsSize = 200;
-        addUserButton.setMaxWidth(buttonsSize);
-        changePasswdButton.setMaxWidth(buttonsSize);
-        deleteUserButton.setMaxWidth(buttonsSize);
+        int buttonsSize = 130;
+        addUserButton.setPrefWidth(buttonsSize);
+        changePasswdButton.setPrefWidth(buttonsSize);
+        deleteUserButton.setPrefWidth(buttonsSize);
 
 
 
@@ -256,9 +258,177 @@ public class AdminGui {
         table.setItems(data);
         table.getColumns().addAll(yearColumn, incomeColumn, costsColumn, balanceColumn);
 
-        root.setCenter(table);
-        root.setRight(null);
+        TableView<TreatmentProperty> priceListTable = new TableView<>();
+        ObservableList<TreatmentProperty> priceListData = FXCollections.observableArrayList();
+        ArrayList<TreatmentView> priceList = manager.getTreatments();
+        for(TreatmentView view: priceList)
+            priceListData.add(new TreatmentProperty(view));
+
+        TableColumn typeOfTreatmentColumn = new TableColumn("Typ badania");
+        typeOfTreatmentColumn.setCellValueFactory(new PropertyValueFactory<TreatmentProperty, String>("typeOfTreatment"));
+        TableColumn priceColumn = new TableColumn("Cena");
+        priceColumn.setCellValueFactory(new PropertyValueFactory<TreatmentProperty, String>("price"));
+        TableColumn refundableColumn = new TableColumn("Refundowane");
+        refundableColumn.setCellValueFactory(new PropertyValueFactory<TreatmentProperty, String>("refundable"));
+
+        priceListTable.setItems(priceListData);
+        priceListTable.getColumns().addAll(typeOfTreatmentColumn, priceColumn, refundableColumn);
+
+        table.setPrefWidth(root.getWidth()/2);
+        priceListTable.setPrefWidth(root.getWidth()/2);
+        HBox tables = new HBox(table, priceListTable);
+        tables.setSpacing(SPACING);
+        root.setCenter(tables);
+
+        Button addTreatmentButton = new Button("Dodaj badanie");
+        addTreatmentButton.setOnAction(e -> onAddTreatmentButton());
+        Button changeTreatmentButton = new Button("Zmień");
+        changeTreatmentButton.setOnAction(e -> {
+            TreatmentProperty treatmentProperty = priceListTable.getSelectionModel().getSelectedItem();
+            onChangeTreatmentButton(treatmentProperty);
+        });
+        Button deleteTreatmentButton = new Button("Usuń badanie");
+        deleteTreatmentButton.setOnAction(e -> {
+            TreatmentProperty treatmentProperty = priceListTable.getSelectionModel().getSelectedItem();
+            onDeleteTreatmentButton(treatmentProperty);
+        });
+        int buttonsSize = 130;
+        addTreatmentButton.setPrefWidth(buttonsSize);
+        changeTreatmentButton.setPrefWidth(buttonsSize);
+        deleteTreatmentButton.setPrefWidth(buttonsSize);
+        VBox vBox = new VBox(addTreatmentButton, changeTreatmentButton, deleteTreatmentButton);
+        vBox.setSpacing(SPACING);
+        vBox.setPadding(new Insets(10, 10, 10, 10));
+
+        root.setRight(vBox);
      }
+
+    private void onAddTreatmentButton(){
+        Stage addTreatmentStage = new Stage();
+        addTreatmentStage.setAlwaysOnTop(true);
+        Label infoLabel = new Label("Wprowadz dane nowego badania");
+        GridPane gridPane = new GridPane();
+        gridPane.setAlignment(Pos.CENTER);
+        gridPane.setVgap(SPACING);
+        gridPane.setHgap(SPACING);
+
+        int i = 1;
+        Label typeOfTreatmentLabel = new Label("Typ Badania");
+        TextField typeOfTreatmentTextField = new TextField();
+        gridPane.addRow(i++, typeOfTreatmentLabel,typeOfTreatmentTextField);
+
+        Label priceLabel = new Label("Cena");
+        TextField priceTextField = new TextField();
+        gridPane.addRow(i++, priceLabel, priceTextField);
+
+        Label refundableLabel = new Label("Refundowany");
+        CheckBox refundableCheckBox = new CheckBox();
+        gridPane.addRow(i++, refundableLabel, refundableCheckBox);
+
+
+        Button addButton = new Button("Dodaj");
+        addButton.setOnAction(e -> {
+            try{
+                TreatmentView treatmentView = new TreatmentView(typeOfTreatmentTextField.getText(),
+                        Integer.parseInt(priceTextField.getText()), refundableCheckBox.isSelected());
+                boolean state = false;
+                state = manager.addTreatment(treatmentView);
+                if(state){
+                    financesMode();
+                    addTreatmentStage.close();
+                }else
+                    infoLabel.setText("nieprawidlowe dane");
+
+
+            }catch (NumberFormatException exception){
+                infoLabel.setText("nieprawidłowe dane");
+            }
+
+        });
+
+        Button cancelButton = new Button("Anuluj");
+        cancelButton.setOnAction(e -> {
+            userMode();
+            addTreatmentStage.close();
+        });
+        gridPane.addRow(i++, addButton, cancelButton);
+
+
+        VBox AllVBox = new VBox(infoLabel, gridPane);
+        AllVBox.setAlignment(Pos.CENTER);
+        AllVBox.setSpacing(SPACING);
+
+        Scene scene = new Scene(AllVBox, 300, 400);
+        addTreatmentStage.setTitle("Nowe badanie");
+        addTreatmentStage.setScene(scene);
+        addTreatmentStage.show();
+    }
+    private void onChangeTreatmentButton(TreatmentProperty treatmentProperty){
+        Stage addTreatmentStage = new Stage();
+        addTreatmentStage.setAlwaysOnTop(true);
+        Label infoLabel = new Label("Zmień odpowiednie pola");
+        GridPane gridPane = new GridPane();
+        gridPane.setAlignment(Pos.CENTER);
+        gridPane.setVgap(SPACING);
+        gridPane.setHgap(SPACING);
+
+        int i = 1;
+        Label typeOfTreatmentLabel = new Label("Typ Badania");
+        Label typeOfTreatmentCompleted = new Label(treatmentProperty.getTypeOfTreatment());
+        gridPane.addRow(i++, typeOfTreatmentLabel,typeOfTreatmentCompleted);
+
+        Label priceLabel = new Label("Cena");
+        TextField priceTextField = new TextField(treatmentProperty.getPrice());
+        gridPane.addRow(i++, priceLabel, priceTextField);
+
+        Label refundableLabel = new Label("Refundowany");
+        CheckBox refundableCheckBox = new CheckBox();
+        if(treatmentProperty.getRefundable().equals("TAK"))
+            refundableCheckBox.setSelected(true);
+        gridPane.addRow(i++, refundableLabel, refundableCheckBox);
+
+
+        Button addButton = new Button("Zmień");
+        addButton.setOnAction(e -> {
+            try{
+                TreatmentView treatmentView = new TreatmentView(treatmentProperty.getTypeOfTreatment(),
+                        Integer.parseInt(priceTextField.getText()), refundableCheckBox.isSelected());
+                boolean state = false;
+                state = manager.changeTreatment(treatmentView);
+                if(state){
+                    financesMode();
+                    addTreatmentStage.close();
+                }else
+                    infoLabel.setText("nieprawidlowe dane");
+
+
+            }catch (NumberFormatException exception){
+                infoLabel.setText("nieprawidłowe dane");
+            }
+
+        });
+
+        Button cancelButton = new Button("Anuluj");
+        cancelButton.setOnAction(e -> {
+            financesMode();
+            addTreatmentStage.close();
+        });
+        gridPane.addRow(i++, addButton, cancelButton);
+
+
+        VBox AllVBox = new VBox(infoLabel, gridPane);
+        AllVBox.setAlignment(Pos.CENTER);
+        AllVBox.setSpacing(SPACING);
+
+        Scene scene = new Scene(AllVBox, 300, 400);
+        addTreatmentStage.setTitle("Zmiana badań");
+        addTreatmentStage.setScene(scene);
+        addTreatmentStage.show();
+    }
+    private void onDeleteTreatmentButton(TreatmentProperty treatmentProperty){
+        manager.deleteTreatment(new TreatmentView(treatmentProperty));
+        financesMode();
+    }
 
     private void employeeMode(){
         TableView<EmployeeProperty> table = new TableView<>();
@@ -317,10 +487,10 @@ public class AdminGui {
              if(employeeProperty != null)
                 onDeleteEmployeeButton(employeeProperty);
          });
-        int buttonsSize = 200;
-        addEmployeeButton.setMaxWidth(buttonsSize);
-        changeEmployeeButton.setMaxWidth(buttonsSize);
-        deleteEmployeeButton.setMaxWidth(buttonsSize);
+        int buttonsSize = 130;
+        addEmployeeButton.setPrefWidth(buttonsSize);
+        changeEmployeeButton.setPrefWidth(buttonsSize);
+        deleteEmployeeButton.setPrefWidth(buttonsSize);
          VBox vBox = new VBox(addEmployeeButton, changeEmployeeButton, deleteEmployeeButton);
          vBox.setSpacing(SPACING);
          vBox.setPadding(new Insets(10, 10, 10, 10));

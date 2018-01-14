@@ -10,6 +10,7 @@ public class FakeAdminConnection implements AdminConnectionInterface {
     ArrayList<UserView> users;
     ArrayList<FinanceView> finances;
     ArrayList<EmployeeView> employees;
+    ArrayList<TreatmentView> treatments;
 
     public FakeAdminConnection() {
         users = new ArrayList<>();
@@ -33,6 +34,11 @@ public class FakeAdminConnection implements AdminConnectionInterface {
                 "Programista", null, "Piaskowa 12", "Czerwieńsk", "66-016",
                 "604998662", 43, date));
 
+
+        treatments = new ArrayList<>();
+        treatments.add(new TreatmentView("Badanie wzroku", 400, false));
+        treatments.add(new TreatmentView("zmartwychwstanie", 1000000000, false));
+        treatments.add(new TreatmentView("pranie mózgu", 5, true));
     }
 
     @Override
@@ -94,5 +100,30 @@ public class FakeAdminConnection implements AdminConnectionInterface {
     @Override
     public ArrayList<FinanceView> getFinances() {
         return finances;
+    }
+
+    @Override
+    public ArrayList<TreatmentView> getTreatments() {
+        return treatments;
+    }
+
+    @Override
+    public boolean addTreatment(TreatmentView treatment) {
+        return treatments.add(treatment);
+    }
+
+    @Override
+    public boolean deleteTreatment(TreatmentView treatment) {
+        return treatments.remove(treatment);
+    }
+
+    @Override
+    public boolean changeTreatment(TreatmentView newTreatment) {
+        if(treatments.contains(newTreatment)){
+            int n = treatments.indexOf(newTreatment);
+            treatments.set(n, newTreatment);
+            return true;
+        }else
+            return false;
     }
 }

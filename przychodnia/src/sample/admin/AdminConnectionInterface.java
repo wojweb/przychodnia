@@ -33,6 +33,11 @@ public interface AdminConnectionInterface {
     //informacje o finansach na rozne lata
     ArrayList<FinanceView> getFinances();
 
+    ArrayList<TreatmentView> getTreatments();
+    boolean addTreatment(TreatmentView treatment);
+    boolean deleteTreatment(TreatmentView treatment);
+    boolean changeTreatment(TreatmentView newTreatment);
+
 
 
 }
