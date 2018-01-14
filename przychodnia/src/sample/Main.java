@@ -10,6 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import sample.admin.AdminGui;
+import sample.recepcjonista.ReceptionistGui;
 
 public class Main extends Application {
     int WIDTH = 300;
@@ -45,8 +46,8 @@ public class Main extends Application {
         Button logInButton = new Button("Zaloguj");
         logInButton.setOnAction(e -> {
 //            boolean onLogInButtonClicked(peselTextField.getText(), passwdTextField.getText());
-            AdminGui gui = new AdminGui(primaryStage);
-
+//            AdminGui gui = new AdminGui(primaryStage);
+            ReceptionistGui gui = new ReceptionistGui(primaryStage);
 
         });
 
